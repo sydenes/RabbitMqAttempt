@@ -1,5 +1,6 @@
 ﻿using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQ
 {
@@ -30,8 +31,12 @@ namespace RabbitMQ
 
             IBasicProperties properties=channel.CreateBasicProperties();
             properties.Headers=headers;
+            properties.Persistent = true; //Normalde durable ile kuyruklara kalıcılık sağlıyorduki Persistent ile mesajlara da kaıcılık sağladık. Diğer exchange'lerde de bu şekilde implement edilir.
 
-            channel.BasicPublish("header-exchange", string.Empty, properties,Encoding.UTF8.GetBytes("My Header Message"));
+            Product product = new() { Id = 1, Name = "Apple", Price=7.5m, Stock=65 }; //sadece string gönderebildiğimiz gibi bu şekilde nesneleri serialize/deserialize ederek gönderebiliriz. Ya da pdf, image vb dosyalarını binary olarak gönderebiliriz. Diğer exchangelerde de bu şekilde yapılabilir.
+            var json=JsonSerializer.Serialize(product);
+
+            channel.BasicPublish("header-exchange", string.Empty, properties,Encoding.UTF8.GetBytes(json));
 
 
             Console.ReadLine();
@@ -41,4 +46,6 @@ namespace RabbitMQ
             ///Header Exchange:Mesajların publisher tarafından header'da gönderilir header'lar üzerinden yakalanması
         }
     }
+
+    public class Product { public int Id; public string Name; public decimal Price; public int Stock; }
 }

@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 
 namespace RabbitMQ.subscriber
 {
@@ -37,8 +38,10 @@ namespace RabbitMQ.subscriber
             consumer.Received += (object? sender, BasicDeliverEventArgs e) =>
             {
                 var msg = Encoding.UTF8.GetString(e.Body.ToArray());
+                Product product= JsonSerializer.Deserialize<Product>(msg);
+
                 Thread.Sleep(500);
-                Console.WriteLine("Mesajınız:" + msg);
+                Console.WriteLine($"Mesajınız:{product.Id}-{product.Name}-{product.Price}-{product.Stock}-");
 
                 channel.BasicAck(e.DeliveryTag, false);
             };
@@ -50,5 +53,7 @@ namespace RabbitMQ.subscriber
         {
             throw new NotImplementedException();
         }
+
+        public class Product { public int Id; public string Name; public decimal Price; public int Stock; }
     }
 }
