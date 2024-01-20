@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace RabbitmqWatermark.BackgroundServices
 {
-    public class ImageWatermarkBackgroundService : BackgroundService
+    public class ImageWatermarkBackgroundService : BackgroundService //RabbitMq service'leri BackgroundService olmadan da çalışır ancak bu servis programın 3 zamanında tetiklenerek işlem yapmanı sağlar.(StartAsync, ExecuteAsync, StopAsync ). Örneğin program kapanırken kuyrukta mesaj varsa bunları şu dosyaya yaz gibi belirli zamanlarda belirli işlemler.
     {
         private readonly RabbitMqClientService _rabbitMqClientService;
 
