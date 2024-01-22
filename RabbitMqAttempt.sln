@@ -41,7 +41,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectExcelCreate", "Proje
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq.ExcelCreate", "RabbitMq.ExcelCreate\RabbitMq.ExcelCreate.csproj", "{66DCC041-917C-48C2-886D-F90A2EF24A17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCreateWorkerService", "FileCreateWorkerService\FileCreateWorkerService.csproj", "{A3E98742-0877-4268-B677-C2B75AFF8CC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,10 @@ Global
 		{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E98742-0877-4268-B677-C2B75AFF8CC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E98742-0877-4268-B677-C2B75AFF8CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E98742-0877-4268-B677-C2B75AFF8CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E98742-0877-4268-B677-C2B75AFF8CC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +125,7 @@ Global
 		{E462044C-6429-4DEF-AAA4-172794F8D0DB} = {CACC37D7-E6B7-415A-BD7B-6048499D2712}
 		{66DCC041-917C-48C2-886D-F90A2EF24A17} = {F74DE3F3-3E69-42B2-8A71-BF370ED9D44C}
 		{2B5C776D-82B8-49CA-A35A-FAFFE40A21B7} = {F74DE3F3-3E69-42B2-8A71-BF370ED9D44C}
+		{A3E98742-0877-4268-B677-C2B75AFF8CC7} = {F74DE3F3-3E69-42B2-8A71-BF370ED9D44C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6136D638-55DA-4D64-857A-2D610CD85EF9}
