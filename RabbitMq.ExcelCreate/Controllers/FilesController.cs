@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using RabbitMq.ExcelCreate.Hubs;
 using RabbitMq.ExcelCreate.Models;
 
 namespace RabbitMq.ExcelCreate.Controllers
@@ -10,10 +12,12 @@ namespace RabbitMq.ExcelCreate.Controllers
     public class FilesController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IHubContext<ExcelHub> _hubContext;
 
-        public FilesController(AppDbContext appDbContext)
+        public FilesController(AppDbContext appDbContext, IHubContext<ExcelHub> hubContext)
         {
             _appDbContext = appDbContext;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -38,7 +42,8 @@ namespace RabbitMq.ExcelCreate.Controllers
             userFile.CreatedAt = DateTime.Now;
             await _appDbContext.SaveChangesAsync();
 
-            //todo: with SignalR, we can send a message to the client side when the file upload is complete.
+            await _hubContext.Clients.User(userFile.UserId).SendAsync("FileCreated"); //send a message to the client that the file has been created. Also, we can send a object to the client.
+
             return Ok();
 
         }

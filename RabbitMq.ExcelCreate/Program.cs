@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RabbitMq.ExcelCreate;
+using RabbitMq.ExcelCreate.Hubs;
 using RabbitMq.ExcelCreate.Models;
 using RabbitMq.ExcelCreate.Services;
 using RabbitMQ.Client;
@@ -26,6 +27,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 //DbContext Seeder Extension
@@ -48,6 +51,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapHub<ExcelHub>("/excelHub");
 
 app.MapControllerRoute(
     name: "default",

@@ -53,6 +53,42 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js" integrity="sha512-7rhBJh1om/W5Ztx7WiYOR9h2wlSaTmPyQMoHFtbT/FVNIA12y6S6I8HY9mrBS1uJ3dSU/R3qaSAXsGYuRjMDxg==" crossorigin="anonymous" ></script>
+    <script>
+        $(document).ready(function () {
+            var connection = new signalR.HubConnectionBuilder().withUrl("/excelHub").build();
+            
+            start();
+            function start() {
+                connection.start().then(function () {
+                    console.log("connected");
+                }).catch(function (err) {
+                    console.log(err);
+                    setTimeout(() => start(), 2000)
+                });
+            }
+
+            connection.on("FileCreated", () => {
+                console.log("excel created")
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Excel file completed",
+                    showConfirmButton: true,
+                    confirmButtonText:"Files",
+                    timer: 5000
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        window.location.href = "/Product/Files";
+                    }
+                });
+            });
+
+        })
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
