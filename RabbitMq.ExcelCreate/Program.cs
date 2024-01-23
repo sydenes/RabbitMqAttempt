@@ -11,14 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //RabbitMq conection string from appsettings.json
-var connectionString = builder.Configuration.GetConnectionString("RabbitMq");
-builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(connectionString), DispatchConsumersAsync = true }); //Background servisinde Async metotlar kullandýðýmýz için DispatchConsumersAsync=true ile bunun kullanýmýný açtýk
+var connectionStringRabbitMq = builder.Configuration.GetConnectionString("RabbitMq");
+builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(connectionStringRabbitMq), DispatchConsumersAsync = true }); //Background servisinde Async metotlar kullandýðýmýz için DispatchConsumersAsync=true ile bunun kullanýmýný açtýk
 
 builder.Services.AddSingleton<RabbitMqClientService>();
 builder.Services.AddSingleton<RabbitMqPublisher>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerExcel")));
 //builder.Services.Configure<IdentityOptions>(options =>
 //{
 //    options.SignIn.RequireConfirmedEmail = true;

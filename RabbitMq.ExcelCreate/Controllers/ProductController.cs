@@ -31,7 +31,7 @@ namespace RabbitMq.ExcelCreate.Controllers
         public async Task<IActionResult> CreateProductExcel()
         {
             var user = await _userManager.GetUserAsync(User);
-            var fileName = $"product-{user.Id}-{Guid.NewGuid()}.xlsx";
+            var fileName = $"product-{user.Id}-{Guid.NewGuid()}";
             UserFile userFile = new UserFile
             {
                 UserId = user.Id,
@@ -44,8 +44,7 @@ namespace RabbitMq.ExcelCreate.Controllers
 
             _rabbitMqPublisher.Publish(new CreateExcelMessage
             {
-                UserFileId = userFile.Id, //Ef core will set this property to the id of the userFile object after saving it to the database.
-                UserId = user.Id
+                UserFileId = userFile.Id //Ef core will set this property to the id of the userFile object after saving it to the database.
             });
 
             TempData["StartCreatingExcel"] = true;
